@@ -9,31 +9,35 @@ This project demonstrates the containerization and orchestration of two independ
 * **Orchestration:** Docker Compose
 * **API Format:** JSON (REST-style)
 
-## 📸 Screenshots
+## 📸 Step-by-Step Execution Outputs
 
 ### 1. Build & Execution
 The following screenshots show the environment setup and the process of building the microservices using `docker-compose up --build`.
 
 | Step | Description | Image |
 |---|---|---|
-| **Environment** | Python and Docker Version Check | ![Env Check](screenshots/01_environment_check.png) |
-| **Build** | Initializing Docker Compose Build | ![Build Start](screenshots/02_compose_up_start.png) |
-| **Running** | Containers active and watching for changes | ![Active](screenshots/04_containers_active.png) |
+| **01** | Python, Docker, and Compose Version Check | ![Env Check](screenshots/01_environment_check.png) |
+| **02** | Initializing Docker Compose Build command | ![Build Start](screenshots/02_compose_up_start.png) |
+| **03** | Docker exporting layers and naming service images | ![Image Exporting](screenshots/03_image_exporting.png) |
+| **04** | Containers active and watching for file changes | ![Active](screenshots/04_containers_active.png) |
 
 ### 2. Service Testing
-Testing the endpoints in the browser to confirm high-fidelity JSON responses from isolated containers.
+Verifying the endpoints in the browser to confirm JSON responses from isolated containers.
 
-* **User Service (Port 8001):** `{"service": "User Service", "status": "running"}`
-* **Product Service (Port 8002):** `{"service": "Product Service", "status": "running"}`
+* **User Service (Port 8001):** `http://localhost:8001/users/`
+* **Product Service (Port 8002):** `http://localhost:8002/products/`
 
 ![User Test](screenshots/05_test_user_service.png)
 ![Product Test](screenshots/06_test_product_service.png)
 
 ### 3. Monitoring & Cleanup
-Using Docker Desktop to monitor resource usage and `docker-compose down` to clean up the environment.
+Using Docker Desktop to monitor resource usage and `docker-compose down` to clean up.
 
-![Dashboard](screenshots/07_docker_desktop_list.png)
-![Cleanup](screenshots/09_cleanup_down.png)
+| Step | Description | Image |
+|---|---|---|
+| **07** | Healthy containers listed in Docker Desktop | ![Dashboard](screenshots/07_docker_desktop_list.png) |
+| **08** | Monitoring live multi-container log streams | ![Logs](screenshots/08_docker_desktop_logs.png) |
+| **09** | Graceful shutdown and container removal | ![Cleanup](screenshots/09_cleanup_down.png) |
 
 ---
 
@@ -49,7 +53,7 @@ Django supports microservices through its modular architecture. While often seen
 
 ### 3. How would you enable service-to-service communication?
 Communication can be achieved via:
-* **Synchronous:** Using the `requests` library or `httpx` to make HTTP calls from one service to another’s internal Docker network URL.
+* **Synchronous:** Using the `requests` library or `httpx` to make HTTP calls from one service to another’s internal Docker network URL (e.g., `http://user-service:8000`).
 * **Asynchronous:** Implementing a message broker like RabbitMQ or Redis with Celery for background tasks and event-driven updates.
 
 ### 4. How can this setup be scaled using Kubernetes?
